@@ -27,23 +27,18 @@ AudioConnection          patchCord7(string6, 0, mixer2, 2);
 AudioConnection          patchCord8(mixer2, 0, dac1, 0);
 
 
-const int finger_delay = 5;
-const int hand_delay = 220;
-
-int chordnum=0;
-
 void setup() {
   AudioMemory(15);
 
-  dac1.analogReference(INTERNAL); // TODO: switch: normal vs loud
-  //dac1.analogReference(EXTERNAL);
-  mixer1.gain(0, 0.25);
-  mixer1.gain(1, 0.25);
-  mixer1.gain(2, 0.25);
-  mixer1.gain(3, 0.25);
-  mixer2.gain(1, 0.25);
-  mixer2.gain(2, 0.25);
-  delay(700);
+  //dac1.analogReference(INTERNAL); // TODO: switch: normal vs loud
+  dac1.analogReference(EXTERNAL);
+  mixer1.gain(0, 0.27);
+  mixer1.gain(1, 0.27);
+  mixer1.gain(2, 0.27);
+  mixer1.gain(3, 0.27);
+  mixer2.gain(1, 0.27);
+  mixer2.gain(2, 0.27);
+  delay(100);
 }
 
 void strum_up(const float *chord, float velocity);
@@ -54,7 +49,7 @@ int avg[12];
 int startup=64;
 
 #define VARIANCE_TOUCH    200
-#define VARIANCE_UNTOUCH   90
+#define VARIANCE_UNTOUCH  80
 
 void loop()
 {
@@ -118,15 +113,35 @@ void touch_event(int num)
 	if (num > 5) return;
 
 	if (touched[11]) {
-		chord = Amajor;
+		if (!touched[10]) {
+			chord = Amajor;
+		} else {
+			chord = Aminor;
+		}
 	} else if (touched[10]) {
-		chord = Gmajor;
+		if (!touched[9]) {
+			chord = Gmajor;
+		} else {
+			chord = Gminor;
+		}
 	} else if (touched[9]) {
-		chord = Fmajor;
+		if (!touched[8]) {
+			chord = Fmajor;
+		} else {
+			chord = Fminor;
+		}
 	} else if (touched[8]) {
-		chord = Emajor;
+		if (!touched[7]) {
+			chord = Emajor;
+		} else {
+			chord = Eminor;
+		}
 	} else if (touched[7]) {
-		chord = Dmajor;
+		if (!touched[6]) {
+			chord = Dmajor;
+		} else {
+			chord = Dminor;
+		}
 	} else if (touched[6]) {
 		chord = Cmajor;
 	} else {
