@@ -6,7 +6,8 @@
 
 #include "chords.h"
 
-// Special thanks to Matthew Rahtz - http://amid.fish/karplus-strong/
+// Video of TouchGuitar in action :)
+// https://youtu.be/TidIpeY_6T8?t=12s
 
 AudioSynthKarplusStrong  string1;
 AudioSynthKarplusStrong  string2;
@@ -30,8 +31,8 @@ AudioConnection          patchCord8(mixer2, 0, dac1, 0);
 void setup() {
   AudioMemory(15);
 
-  //dac1.analogReference(INTERNAL); // TODO: switch: normal vs loud
-  dac1.analogReference(EXTERNAL);
+  dac1.analogReference(INTERNAL);   // normal volume
+  //dac1.analogReference(EXTERNAL); // louder
   mixer1.gain(0, 0.27);
   mixer1.gain(1, 0.27);
   mixer1.gain(2, 0.27);
